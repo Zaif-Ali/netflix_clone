@@ -1,7 +1,8 @@
 
 import dbConnect from "@/config/connection";
-import Accounts, { IAccount, IAccountSchema } from "@/model/Accounts";
-import Profiles, { IProfile, IProfileSchema } from "@/model/Profiles";
+import Accounts from "@/model/Accounts";
+import Profiles from "@/model/Profiles";
+import { IAccount, IAccountSchema, IProfile, IProfileSchema } from "@/model/types/ModalTypes";
 import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 
