@@ -1,4 +1,3 @@
-
 import dbConnect from "@/config/connection";
 import Accounts from "@/model/Accounts";
 import Profiles from "@/model/Profiles";
