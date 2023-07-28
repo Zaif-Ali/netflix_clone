@@ -2,6 +2,7 @@
 import Input from "../Input";
 import { useCallback, useState } from "react";
 import axios from "axios";
+import { isPasswordValid, isValidEmail } from "@/lib/Validations/Password";
 
 interface SharedInputData {
   email: string;
@@ -38,11 +39,23 @@ const AuthBox = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Register Function
   const register = async () => {
-    try {
-      const res = await axios.post("/api/auth/register", data);
-    } catch (error) {
-      console.log(error);
+    const d = data as RegisterData;
+    if (
+      d.email.length > 4 &&
+      d.password.length > 4 &&
+      d.username.length > 4 &&
+      isPasswordValid(d.password) &&
+      isValidEmail(d.email)
+    ) {
+      try {
+        const res = await axios.post("/api/auth/register", data);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert("Invalid");
     }
   };
 
@@ -79,11 +92,13 @@ const AuthBox = () => {
       </div>
       <button
         onClick={varient === "Register" ? register : () => console.log("login")}
-        className="bg-red-600 py-3 text-white rounded-md w-full mt-6 hover:bg-red-700 transition"
+        className="bg-red-600 py-3 text-white rounded-md w-full mt-6 hover:bg-red-700 transition
+        disabled:opacity-50
+        "
       >
         {varient === "Register" ? "Create a account" : "Login"}
       </button>
-      
+
       <p className="text-neutral-500 mt-7">
         {varient === "Sign in"
           ? "First time using Netflix?"

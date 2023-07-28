@@ -27,7 +27,6 @@ const Input: NextPage<InputProps> = ({
         type={type}
         value={value}
         autoComplete="off"
-        
       />
       <label
         htmlFor="email"
@@ -35,7 +34,6 @@ const Input: NextPage<InputProps> = ({
         absolute 
         text-md
       text-zinc-400
-      
         duration-150 
         transform 
         -translate-y-3 
