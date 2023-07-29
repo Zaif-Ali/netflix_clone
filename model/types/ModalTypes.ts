@@ -4,7 +4,7 @@ import { Document, Schema, model, models } from 'mongoose';
 // Account Schema
 
 export interface IAccount {
-    name: string;
+    username: string;
     email: string;
     password: string;
     region: string;

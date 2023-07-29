@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Inputschema } from "./c";
-
+import { Inputschema } from "./validation";
 
 
 
@@ -8,8 +7,8 @@ export async function regmiddleware(request: NextRequest) {
   try {
     let InputData = await request.json();
     InputData = await Inputschema.validate(InputData, { strict: true, abortEarly: false })
-  } catch (error : any) {
-    return NextResponse.json(error)
+  } catch (error: any) {
+    return NextResponse.json({ error, msg: "Validation" })
   }
   const response = NextResponse.next()
 

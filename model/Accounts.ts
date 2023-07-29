@@ -4,7 +4,7 @@ import { IAccountSchema } from './types/ModalTypes';
 
 
 const accountSchema = new Schema<IAccountSchema>({
-    name: { type: String, required: true },
+    username: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     region: { type: String },

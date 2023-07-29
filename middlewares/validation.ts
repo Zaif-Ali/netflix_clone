@@ -1,4 +1,4 @@
-import { object, string, number, date, InferType } from 'yup';
+import { object, string } from 'yup';
 
 export let Inputschema = object({
     username: string().min(5).required(),
