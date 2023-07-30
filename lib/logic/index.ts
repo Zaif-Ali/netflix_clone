@@ -5,7 +5,8 @@ export const MakeProfiles = async (accountId: string, noOfProfiles: number = 4) 
     for (let index = 0; index < noOfProfiles; index++) {
         seriesOfProfiles.push({
             name: `profile ${index}`,
-            accountId: accountId
+            accountId: accountId , 
+            pin : "1111"
         })
     }
     const profiles = await Promise.all(seriesOfProfiles.map((profileData) => Profiles.create(profileData)));
