@@ -13,9 +13,9 @@ export async function POST(request: NextRequest) {
 
         const user = await Accounts.findOne({ email })
         if (user) {
-            return NextResponse.json({ er: "User Already exist" }, { status: 400 })
+            return NextResponse.json({ er: "User Already exist", success: false }, { status: 400 })
         }
-      
+
         // create new account  and then we have to create his profiles by default we create 4 profiles of every account futher we control this by 
         // user payment pkg 
 
@@ -36,10 +36,11 @@ export async function POST(request: NextRequest) {
         await account.save();
 
         return NextResponse.json({
+            success: true,
             account,
             profiles
         }, {
-            status: 200
+            status: 202
         })
 
     } catch (error) {

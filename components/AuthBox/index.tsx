@@ -2,7 +2,7 @@
 import Input from "../Input";
 import { useCallback, useState } from "react";
 import axios from "axios";
-import { isPasswordValid, isValidEmail } from "@/lib/Validations/Password";
+import { Inputschema } from "@/lib/validation/valSchema";
 
 interface SharedInputData {
   email: string;
@@ -41,21 +41,18 @@ const AuthBox = () => {
 
   // Register Function
   const register = async () => {
-    const d = data as RegisterData;
-    if (
-      d.email.length > 4 &&
-      d.password.length > 4 &&
-      d.username.length > 4 &&
-      isPasswordValid(d.password) &&
-      isValidEmail(d.email)
-    ) {
-      try {
-        const res = await axios.post("/api/auth/register", data);
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      alert("Invalid");
+    try {
+      await Inputschema.validate(data);
+      console.log("pass");
+    } catch (error) {
+      alert(error);
+    }
+    try {
+      const res = await axios.post("/api/auth/register", data);
+      const d =await res.data
+      console.log(d);
+    } catch (error) {
+      alert(error)
     }
   };
 

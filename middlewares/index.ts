@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Inputschema } from "./validation";
+import { Inputschema } from "../lib/validation/valSchema";
 
 
 
