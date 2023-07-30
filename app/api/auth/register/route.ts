@@ -1,10 +1,9 @@
 import dbConnect from "@/config/connection";
 import { MakeProfiles } from "@/lib/logic";
 import Accounts from "@/model/Accounts";
-import Profiles from "@/model/Profiles";
-import { IAccount, IProfile } from "@/model/types/ModalTypes";
+import { IAccount } from "@/model/types/ModalTypes";
 import { NextRequest, NextResponse } from "next/server";
-
+import bcrypt from 'bcrypt'
 
 export async function POST(request: NextRequest) {
 
@@ -17,6 +16,11 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ er: "User Already exist" }, { status: 400 })
         }
 
+        // hashed password
+
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds)
+      
         // create new account  and then we have to create his profiles by default we create 4 profiles of every account futher we control this by 
         // user payment pkg 
 
@@ -24,7 +28,7 @@ export async function POST(request: NextRequest) {
         const newAccountData: IAccount = {
             username,
             email,
-            password,
+            password: hashedPassword,
             region: request.cookies.get('region')?.value as string,
             profiles: [],
         };
