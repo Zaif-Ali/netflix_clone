@@ -2,7 +2,10 @@
 import Input from "../Input";
 import { useCallback, useState } from "react";
 import axios from "axios";
-import { Inputschema } from "@/lib/validation/valSchema";
+import {
+  RegisterInputschema,
+  LoginInputschema,
+} from "@/lib/validation/valSchema";
 
 interface SharedInputData {
   email: string;
@@ -39,20 +42,34 @@ const AuthBox = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const Login = async () => {
+    try {
+      const d = await LoginInputschema.validate(data);
+      const res = await axios.post("/api/auth/login", data);
+      console.log(d);
+    } catch (error) {
+      alert(error);
+      return;
+    }
+  };
+
   // Register Function
   const register = async () => {
     try {
-      await Inputschema.validate(data);
+      await RegisterInputschema.validate(data);
       console.log("pass");
     } catch (error) {
       alert(error);
+      return;
     }
     try {
       const res = await axios.post("/api/auth/register", data);
-      const d =await res.data
-      console.log(d);
-    } catch (error) {
-      alert(error)
+      const d = await res.data;
+      if (d.success) {
+        Login();
+      }
+    } catch (error: any) {
+      alert(error.response.data.er);
     }
   };
 

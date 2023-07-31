@@ -37,8 +37,6 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json({
             success: true,
-            account,
-            profiles
         }, {
             status: 202
         })

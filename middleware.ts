@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { regmiddleware } from './middlewares';
+import { logmiddleware, regmiddleware } from './middlewares';
 
 
 
@@ -9,6 +9,11 @@ const middlewaresMatcher = [
     matcher: '/api/auth/register',
     handler: regmiddleware,
   },
+  {
+    matcher: '/api/auth/login',
+    handler: logmiddleware,
+  },
+
 ]
 
 export default function middlewareHandler(request: NextRequest) {
