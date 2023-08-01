@@ -1,4 +1,5 @@
 import { jwtVerify } from "jose";
+import { NextRequest } from "next/server";
 
 export function getJwtSecretKey() {
     const secret = process.env.NEXTAUTH_SECRET;
@@ -18,3 +19,11 @@ export async function verifyJwtToken(token: any) {
         return null;
     }
 }
+
+export async function isVerified(request: NextRequest) {
+    // Get token to check its verify or not
+    const { cookies } = request;
+    const { value: token } = cookies.get("user-token") ?? { value: null };
+    const hasVerifiedToken = token && (await verifyJwtToken(token));
+    return hasVerifiedToken
+} 

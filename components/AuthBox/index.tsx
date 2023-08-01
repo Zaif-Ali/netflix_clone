@@ -6,6 +6,7 @@ import {
   RegisterInputschema,
   LoginInputschema,
 } from "@/lib/validation/valSchema";
+import { useRouter } from "next/navigation";
 
 interface SharedInputData {
   email: string;
@@ -41,12 +42,15 @@ const AuthBox = () => {
     setvarient((current) => (current === "Register" ? "Sign in" : "Register"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  const { push } = useRouter();
   const Login = async () => {
     try {
-      const d = await LoginInputschema.validate(data);
+      await LoginInputschema.validate(data);
       const res = await axios.post("/api/auth/login", data);
-      console.log(d);
+      const reSData = await res.data;
+      if (reSData.success) {
+        push("/browse");
+      }
     } catch (error) {
       alert(error);
       return;
@@ -64,6 +68,7 @@ const AuthBox = () => {
     }
     try {
       const res = await axios.post("/api/auth/register", data);
+      console.log(res);
       const d = await res.data;
       if (d.success) {
         Login();
@@ -105,7 +110,7 @@ const AuthBox = () => {
         />
       </div>
       <button
-        onClick={varient === "Register" ? register : () => console.log("login")}
+        onClick={varient === "Register" ? register : Login}
         className="bg-red-600 py-3 text-white rounded-md w-full mt-6 hover:bg-red-700 transition
         disabled:opacity-50
         "

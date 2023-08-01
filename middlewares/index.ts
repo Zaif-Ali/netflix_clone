@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { LoginInputschema, RegisterInputschema } from "../lib/validation/valSchema";
-import { verifyJwtToken } from "@/lib";
+import { isVerified, verifyJwtToken } from "@/lib";
 
 
 export async function regmiddleware(request: NextRequest) {
@@ -24,20 +24,37 @@ export async function logmiddleware(request: NextRequest) {
     console.log(error)
     return NextResponse.json({ error }, { status: 400 })
   }
-  // Get token to check its verify or not
-  const { cookies } = request;
-  const { value: token } = cookies.get("user-token") ?? { value: null };
-  const hasVerifiedToken = token && (await verifyJwtToken(token));
-  
-  if (hasVerifiedToken) {
+
+  const user = await isVerified(request)
+
+  if (user) {
     // If the token is verify
-    return NextResponse.json({ message: "Already login" }, { status: 200 })
+    return NextResponse.json({ message: "Already login", success: true }, { status: 200 })
   }
   // if the token is not verify 
   const response = NextResponse.next()
-  response.cookies.delete("token");
+  response.cookies.delete("user-token");
   response.cookies.set('region', 'pk')
   return response
+}
+
+
+export async function browseMiddleware(request: NextRequest) {
+  const user = await isVerified(request)
+  if (user) {
+    return NextResponse.next();
+  }
+  const auth = new URL('/auth', request.url);
+  return NextResponse.redirect(auth)
+}
+
+
+export async function authmiddleware(request: NextRequest) {
+  const user = await isVerified(request)
+  const browse = new URL('/browse', request.url);
+  if (user) {
+    return NextResponse.redirect(browse)
+  }
 }
 
 

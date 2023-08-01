@@ -1,10 +1,14 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { logmiddleware, regmiddleware } from './middlewares';
+import { authmiddleware, logmiddleware, regmiddleware , browseMiddleware} from './middlewares';
 
 
 
 const middlewaresMatcher = [
+  {
+    matcher: '/auth',
+    handler: authmiddleware,
+  },
   {
     matcher: '/api/auth/register',
     handler: regmiddleware,
@@ -14,6 +18,10 @@ const middlewaresMatcher = [
     handler: logmiddleware,
   },
 
+  {
+    matcher: '/browse',
+    handler: browseMiddleware,
+  },
 ]
 
 export default function middlewareHandler(request: NextRequest) {
