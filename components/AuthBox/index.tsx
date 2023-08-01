@@ -21,7 +21,7 @@ export interface RegisterData extends SharedInputData {
 const AuthBox = () => {
   // is auth for login or create a new acccount
   const [varient, setvarient] = useState<Variant>("Sign in");
-
+  const [isDisable, setisDisable] = useState<boolean>(false);
   // state to handle the input data
   const [data, setdata] = useState<SharedInputData | RegisterData>({
     email: "",
@@ -45,6 +45,7 @@ const AuthBox = () => {
   const { push } = useRouter();
   const Login = async () => {
     try {
+      setisDisable(true)
       await LoginInputschema.validate(data);
       const res = await axios.post("/api/auth/login", data);
       const reSData = await res.data;
@@ -54,16 +55,20 @@ const AuthBox = () => {
     } catch (error) {
       alert(error);
       return;
+    }finally{
+      setisDisable(false)
     }
   };
 
   // Register Function
   const register = async () => {
+    setisDisable(true)
     try {
       await RegisterInputschema.validate(data);
       console.log("pass");
     } catch (error) {
       alert(error);
+      setisDisable(false)
       return;
     }
     try {
@@ -76,6 +81,7 @@ const AuthBox = () => {
     } catch (error: any) {
       alert(error.response.data.er);
     }
+    setisDisable(false)
   };
 
   return (
@@ -114,6 +120,7 @@ const AuthBox = () => {
         className="bg-red-600 py-3 text-white rounded-md w-full mt-6 hover:bg-red-700 transition
         disabled:opacity-50
         "
+        disabled = {isDisable}
       >
         {varient === "Register" ? "Create a account" : "Login"}
       </button>
