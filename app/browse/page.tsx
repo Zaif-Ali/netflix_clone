@@ -26,7 +26,7 @@ const Index: NextPage<Props> = ({}) => {
             <div className="flex flex-col md:flex-row md:flex-wrap justify-center items-center space-x-3">
               {data.profiles.map((p, i) => (
                 <React.Fragment key={i}>
-                  <UserCard name={p.name} avatar={p.avatar} />
+                  <UserCard name={p.name} avatar={p.avatar} profileid={p._id} />
                 </React.Fragment>
               ))}
             </div>

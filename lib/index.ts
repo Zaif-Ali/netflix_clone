@@ -27,3 +27,11 @@ export async function isVerified(request: NextRequest) {
     const hasVerifiedToken = token && (await verifyJwtToken(token));
     return hasVerifiedToken
 } 
+
+export async function isProfileVerified(request: NextRequest) {
+    // Get token to check its verify or not
+    const { cookies } = request;
+    const { value: token } = cookies.get("profile-token") ?? { value: null };
+    const hasVerifiedToken = token && (await verifyJwtToken(token));
+    return hasVerifiedToken
+} 

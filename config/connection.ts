@@ -34,6 +34,7 @@ async function dbConnect() {
     if (!cached.promise) {
         const opts = {
             bufferCommands: false,
+            useNewUrlParser: true,
         };
 
         cached.promise = connect(MONGODB_URI!, opts).then((mongoose) => {

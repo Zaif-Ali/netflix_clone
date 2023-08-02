@@ -7,9 +7,10 @@ import PinInput from "../Otp input/PinInput";
 interface UserCard {
   name: string;
   avatar: string;
+  profileid : string
 }
 
-const UserCard: NextPage<UserCard> = ({ name, avatar }) => {
+const UserCard: NextPage<UserCard> = ({ name, avatar , profileid }) => {
   let [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
@@ -70,7 +71,7 @@ const UserCard: NextPage<UserCard> = ({ name, avatar }) => {
                       Enter Your Pin to acess this Profile
                     </div>
                     <div className="flex flex-row justify-center items-center py-7 space-x-2">
-                      <PinInput/>
+                      <PinInput profileid = {profileid}/>
                     </div>
                   </div>
                 </Dialog.Panel>

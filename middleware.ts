@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { authmiddleware, logmiddleware, regmiddleware , browseMiddleware} from './middlewares';
+import { authmiddleware, logmiddleware, regmiddleware , browseMiddleware, moviePagehMiddleware} from './middlewares';
 
 
 
@@ -21,6 +21,10 @@ const middlewaresMatcher = [
   {
     matcher: '/browse',
     handler: browseMiddleware,
+  },
+  {
+    matcher: '/movies',
+    handler: moviePagehMiddleware,
   },
 ]
 

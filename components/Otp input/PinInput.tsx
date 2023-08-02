@@ -1,13 +1,17 @@
+import axios from "axios";
 import { NextPage } from "next";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 
-interface Props {}
+interface Props {
+  profileid: string;
+}
 let currentOTP: number = 0;
-const PinInput: NextPage<Props> = ({}) => {
+const PinInput: NextPage<Props> = ({ profileid }) => {
   const [otp, setotp] = useState<string[]>(new Array(4).fill(""));
   const [activeOTPIndex, setactiveOTPIndex] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement>(null);
-
+  const { push } = useRouter();
   const handleChange = ({
     target,
   }: React.ChangeEvent<HTMLInputElement>): void => {
@@ -29,6 +33,20 @@ const PinInput: NextPage<Props> = ({}) => {
     }
   };
 
+  const logProfile = async (profileOTP: string) => {
+    const res = await axios.post("/api/profile/login", {
+      profileid,
+      profileOTP,
+    });
+    const data = await res.data;
+
+    if (!data.success) {
+      alert("Invalid Profile ID or OTP!");
+      return;
+    }
+    push("/movies");
+  };
+
   useEffect(() => {
     inputRef.current?.focus();
 
@@ -37,8 +55,8 @@ const PinInput: NextPage<Props> = ({}) => {
       let fullOTP = otp.join(""); // Concatenate all OTP digits
       fullOTP = fullOTP.replace(/\s/g, "");
       if (fullOTP.length === 4) {
-        console.log("Full OTP:", fullOTP);
-      } 
+        logProfile(fullOTP);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeOTPIndex]);

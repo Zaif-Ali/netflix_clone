@@ -4,14 +4,15 @@ import Profiles from "@/model/Profiles";
 import { NextRequest, NextResponse } from "next/server";
 
 
+export interface exportProfiles {
+    "_id" : string,
+    "name": string,
+    "avatar": string
+}
 
 export interface typeresponse {
 
-    "profiles":
-    {
-        "name": string,
-        "avatar": string
-    }[],
+    "profiles": exportProfiles[]   
     "success": boolean
 }
 
@@ -26,7 +27,7 @@ export async function GET(request: NextRequest) {
         const profileIds = user.user.profiles;
 
         // Fetch the profile data from the database using the profile IDs
-        const profiles = await Profiles.find({ _id: { $in: profileIds } }).select('name avatar');
+        const profiles : exportProfiles[] = await Profiles.find({ _id: { $in: profileIds } }).select('name avatar _id');
 
         const response: typeresponse = { profiles: profiles, success: true }
         return NextResponse.json(response, { status: 200 });

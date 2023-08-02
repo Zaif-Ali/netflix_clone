@@ -49,6 +49,7 @@ const AuthBox = () => {
       await LoginInputschema.validate(data);
       const res = await axios.post("/api/auth/login", data);
       const reSData = await res.data;
+      console.log(reSData)
       if (reSData.success) {
         push("/browse");
       }

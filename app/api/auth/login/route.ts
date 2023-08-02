@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     const token = await new SignJWT(payload)
         .setProtectedHeader({ alg: "HS256" })
         .setIssuedAt()
-        .setExpirationTime("60m") 
+        .setExpirationTime("60m")
         .sign(getJwtSecretKey());
 
 
