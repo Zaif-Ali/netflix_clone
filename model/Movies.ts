@@ -3,9 +3,12 @@ import { IMovieSchema } from './types/ModalTypes';
 
 
 const movieSchema = new Schema<IMovieSchema>({
-    name: { type: String, required: true },
-    video: { type: String, required: true },
-    genre: { type: String },
+    title: { type: String, required: true , unique : true },
+    description: { type: String, required: true },
+    thumbnailUrl: { type: String, required: true },
+    videoUrl: { type: String, required: true },
+    genre: { type: String , required: true},
+    duration: { type: String , required: true },
 });
 
 

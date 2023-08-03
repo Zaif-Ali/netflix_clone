@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
 
 
     const response = NextResponse.json(
-        { success: true },
+        { success: true , name : profile.name},
         { status: 200 })
 
     response.cookies.set({

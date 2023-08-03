@@ -1,5 +1,8 @@
+import axios from "axios";
 import { jwtVerify } from "jose";
 import { NextRequest } from "next/server";
+
+export const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 export function getJwtSecretKey() {
     const secret = process.env.NEXTAUTH_SECRET;

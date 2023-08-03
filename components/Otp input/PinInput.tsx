@@ -1,3 +1,4 @@
+import useInfoModalStore from "@/hooks/useInfoModalStore";
 import axios from "axios";
 import { NextPage } from "next";
 import { useRouter } from "next/navigation";
@@ -8,6 +9,7 @@ interface Props {
 }
 let currentOTP: number = 0;
 const PinInput: NextPage<Props> = ({ profileid }) => {
+  const { SetProfile } = useInfoModalStore();
   const [otp, setotp] = useState<string[]>(new Array(4).fill(""));
   const [activeOTPIndex, setactiveOTPIndex] = useState<number>(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -44,6 +46,7 @@ const PinInput: NextPage<Props> = ({ profileid }) => {
       alert("Invalid Profile ID or OTP!");
       return;
     }
+    SetProfile(data.name);
     push("/movies");
   };
 

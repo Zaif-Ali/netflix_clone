@@ -1,9 +1,14 @@
-import { NextPage } from 'next'
+import BillBoard from '@/components/BillBoard'
+import Navbar from '@/components/nav/Navbar'
+import React from 'react'
 
-interface Props {}
-
-const movies: NextPage<Props> = ({}) => {
-  return <div>movies</div>
+const page = () => {
+  return (
+    <div>
+      <Navbar />
+      <BillBoard/>
+    </div>
+  )
 }
 
-export default movies
+export default page

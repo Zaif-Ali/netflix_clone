@@ -19,9 +19,12 @@ export interface IAccountSchema extends Document, IAccount {
 
 // Movie Schema
 export interface IMovie {
-    name: string;
-    video: string;
+    title: string;
+    description: string;
+    thumbnailUrl: string;
+    videoUrl: string;
     genre: string;
+    duration: string;
 }
 export interface IMovieSchema extends Document, IMovie {
 }
