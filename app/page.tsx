@@ -6,6 +6,7 @@ export default function Home() {
   const { push } = useRouter();
   useEffect(() => {
     push("/browse");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return;
 }

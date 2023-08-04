@@ -1,6 +1,6 @@
 
 import React from "react";
-import { AiOutlinePlus, AiOutlineCheck } from "react-icons/ai";
+import { AiOutlinePlus } from "react-icons/ai";
 
 
 interface FavoriteButtonProps {

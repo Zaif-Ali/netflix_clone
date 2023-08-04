@@ -14,6 +14,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ data }) => {
   const router = useRouter();
   const { openModal } = useInfoModalStore();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const redirectToWatch = useCallback(() => router.push(`/movies/${data._id}`), [router, data.id]);
 
   return (

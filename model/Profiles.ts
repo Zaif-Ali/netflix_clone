@@ -1,7 +1,7 @@
-import { Document, Schema, model, models } from 'mongoose';
+import {  Schema, model, models } from 'mongoose';
 import { IProfileSchema } from './types/ModalTypes';
 import bcrypt from 'bcrypt';
-import { string } from 'yup';
+
 
 
 

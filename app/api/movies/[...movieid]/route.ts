@@ -1,7 +1,5 @@
 import dbConnect from "@/config/connection";
 import Movies from "@/model/Movies";
-
-import { NextApiRequest } from "next";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest, params: any) {
