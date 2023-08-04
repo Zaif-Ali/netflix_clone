@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     // JWT Token Creation
     const payload = {
         userid: user._id,
-        profileid,
+        profile,
 
     }
 
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
 
 
     const response = NextResponse.json(
-        { success: true , name : profile.name},
+        { success: true , name : profile.name , id : profile._id},
         { status: 200 })
 
     response.cookies.set({

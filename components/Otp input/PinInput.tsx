@@ -46,7 +46,7 @@ const PinInput: NextPage<Props> = ({ profileid }) => {
       alert("Invalid Profile ID or OTP!");
       return;
     }
-    SetProfile(data.name);
+    SetProfile(data.name , data.id);
     push("/movies");
   };
 

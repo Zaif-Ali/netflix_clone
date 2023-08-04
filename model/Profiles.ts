@@ -1,6 +1,7 @@
 import { Document, Schema, model, models } from 'mongoose';
 import { IProfileSchema } from './types/ModalTypes';
 import bcrypt from 'bcrypt';
+import { string } from 'yup';
 
 
 
@@ -9,7 +10,10 @@ const profileSchema = new Schema<IProfileSchema>({
     avatar: { type: String },
     pin: { type: String },
     accountId: { type: Schema.Types.ObjectId, ref: 'Accounts', required: true },
-    wishlist: [{ type: Schema.Types.ObjectId, ref: 'Wishlists' }],
+    wishlist: [{
+        type: String,
+        default: []
+    }],
 }, {
     timestamps: true,
     toJSON: {

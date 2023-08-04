@@ -34,16 +34,8 @@ export interface IProfile {
     avatar: string;
     pin: string;
     accountId: Schema.Types.ObjectId;
-    wishlist: IWishlist[]
+    wishlist: string[]
 }
 
 // Profile Schema
 export interface IProfileSchema extends Document, IProfile { }
-
-// Wishlist Schema
-export interface IWishlist {
-    profileId: Schema.Types.ObjectId;
-    movieId: Schema.Types.ObjectId;
-}
-export interface IWishlistSchema extends Document, IWishlist {
-}
